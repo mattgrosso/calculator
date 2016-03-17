@@ -1,15 +1,31 @@
 
 // DEFINE YOUR VARIABLES HERE
-
-
+var runningTotal = 0;
+var screen = "";
 
 // DEFINE YOUR FUNCTIONS HERE
 
 function handleButtonClick(element) {
-    // You can use this to get the value of the button:
-    // element.value
-
+  
 }
+
+function addToTotal(newNumber,runningTotal) {
+  return runningTotal + newNumber;
+}
+
+function subtractFromTotal(newNumber, runningTotal){
+  return runningTotal - newNumber;
+}
+
+function multiplyWithTotal(newNumber, runningTotal) {
+  return runningTotal * newNumber;
+}
+
+function divideByTotal(newNumber, runningTotal) {
+  return newNumber / runningTotal;
+}
+
+console.log(subtractFromTotal(4,5));
 
 
 
