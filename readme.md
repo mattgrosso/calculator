@@ -1,1 +1,1 @@
-This is our pair programing calculator.
+Worked with Austen up to a point.

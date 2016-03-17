@@ -1,13 +1,9 @@
 
 // DEFINE YOUR VARIABLES HERE
 var runningTotal = 0;
-var screen = "";
+var display = "";
 
 // DEFINE YOUR FUNCTIONS HERE
-
-function handleButtonClick(element) {
-  
-}
 
 function addToTotal(newNumber,runningTotal) {
   return runningTotal + newNumber;
@@ -25,7 +21,29 @@ function divideByTotal(newNumber, runningTotal) {
   return newNumber / runningTotal;
 }
 
-console.log(subtractFromTotal(4,5));
+
+function handleButtonClick(element) {
+  if(Number(element.value) || element.value === '0'){
+    display = display + element.value;
+    console.log(display);
+  } else if(element.value === '+'){
+    display = addToTotal(Number(display), runningTotal);
+    console.log(display);
+  } else if(element.value === '-'){
+    display = subtractFromTotal(Number(display), runningTotal);
+    console.log(display);
+  } else if(element.value === 'x'){
+    display = multiplyWithTotal(Number(display), runningTotal);
+    console.log(display);
+  } else if(element.value === '/'){
+    display = divideByTotal(Number(display), runningTotal);
+    console.log(display);
+  }
+}
+
+
+
+;
 
 
 
