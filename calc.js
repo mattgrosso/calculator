@@ -7,8 +7,10 @@ var currentNumber = "";
 var previousNumber = "";
 //this is the last number built by the calculator
 var lastOperator = "";
+//this is meant to keep a running total
+var runningTotal = 0;
 //this is the most recent operator pushed on the calculator
-
+var figure = document.querySelector("figure");
 
 // DEFINE YOUR FUNCTIONS HERE
 
@@ -25,60 +27,113 @@ function multiplyWithTotal(newNumber, runningTotal) {
 }
 
 function divideByTotal(newNumber, runningTotal) {
-  return newNumber / runningTotal;
+  return runningTotal / newNumber;
 }
+//for some reason my division function isn't working. I'm at a loss.
 
+console.log(divideByTotal(2 / 8));
 
 function handleButtonClick(element) {
   if(Number(element.value) || element.value === '0' || element.value === '.'){
-      currentNumber = "";
       currentNumber = currentNumber + element.value;
       display = currentNumber;
-      console.log(display, currentNumber, previousNumber, lastOperator);
-      return display;
-  } else if(element.value === '+' || element.value === '-' || element.value === 'x' || element.value === '/'){
+      figure.innerHTML = display;
+  } else if(element.value === '+'){
+      if(runningTotal === ""){
+        previousNumber = Number(currentNumber);
+        lastOperator = element.value;
+        runningTotal = Number(currentNumber);
+        display = currentNumber + lastOperator;
+        currentNumber = "";
+        figure.innerHTML = display;
+      } else{
+      runningTotal = addToTotal(Number(currentNumber),runningTotal);
       previousNumber = Number(currentNumber);
       lastOperator = element.value;
-      display = lastOperator;
+      display = runningTotal + lastOperator;
       currentNumber = "";
-      console.log(display, currentNumber, previousNumber, lastOperator);
-      return display;
+      figure.innerHTML = display;
+    }
+  } else if(element.value === '-'){
+      if(runningTotal === ""){
+        previousNumber = Number(currentNumber);
+        lastOperator = element.value;
+        runningTotal = Number(currentNumber);
+        display = currentNumber + lastOperator;
+        currentNumber = "";
+        figure.innerHTML = display;
+      } else{
+      runningTotal = subtractFromTotal(Number(currentNumber),runningTotal);
+      previousNumber = Number(currentNumber);
+      lastOperator = element.value;
+      display = runningTotal + lastOperator;
+      currentNumber = "";
+      figure.innerHTML = display;
+    }
+  } else if(element.value === 'x'){
+    console.log(runningTotal);
+      if(runningTotal === ""){
+        previousNumber = Number(currentNumber);
+        lastOperator = element.value;
+        runningTotal = Number(currentNumber);
+        display = currentNumber + lastOperator;
+        currentNumber = "";
+        figure.innerHTML = display;
+      } else{
+      runningTotal = multiplyWithTotal(Number(currentNumber),runningTotal);
+      previousNumber = Number(currentNumber);
+      lastOperator = element.value;
+      display = runningTotal + lastOperator;
+      currentNumber = "";
+      figure.innerHTML = display;
+    }
+  } else if(element.value === '/'){
+      if(runningTotal === ""){
+        console.log(runningTotal);
+        previousNumber = Number(currentNumber);
+        lastOperator = element.value;
+        runningTotal = Number(currentNumber);
+        display = currentNumber + lastOperator;
+        currentNumber = "";
+        figure.innerHTML = display;
+      } else{
+        console.log(runningTotal);
+      runningTotal = divideByTotal(Number(currentNumber),runningTotal);
+      previousNumber = Number(currentNumber);
+      lastOperator = element.value;
+      display = runningTotal + lastOperator;
+      currentNumber = "";
+      figure.innerHTML = display;
+    }
   } else if(element.value === '=' && lastOperator === '+'){
-      display = addToTotal(Number(currentNumber),Number(previousNumber));
+      display = addToTotal(Number(currentNumber),Number(runningTotal));
       currentNumber = display;
       previousNumber = display;
-      console.log(display, currentNumber, previousNumber, lastOperator);
-      return display;
+      figure.innerHTML = display;
   } else if(element.value === '=' && lastOperator === '-'){
-      display = subtractFromTotal(Number(currentNumber),Number(previousNumber));
+      display = subtractFromTotal(Number(currentNumber),Number(runningTotal));
       currentNumber = display;
       previousNumber = display;
-      console.log(display, currentNumber, previousNumber, lastOperator);
-      return display;
+      figure.innerHTML = display;
   } else if(element.value === '=' && lastOperator === 'x'){
-      display = multiplyWithTotal(Number(currentNumber),Number(previousNumber));
+      display = multiplyWithTotal(Number(currentNumber),Number(runningTotal));
       currentNumber = display;
       previousNumber = display;
-      console.log(display, currentNumber, previousNumber, lastOperator);
-      return display;
+      figure.innerHTML = display;
   } else if(element.value === '=' && lastOperator === '/'){
-      display = divideByTotal(Number(previousNumber),Number(currentNumber));
+      display = divideByTotal(Number(previousNumber),Number(runningTotal));
       currentNumber = display;
       previousNumber = display;
-      console.log(display, currentNumber, previousNumber, lastOperator);
-      return display;
-  } else if(element.value === "clear"){
+      figure.innerHTML = display;
+  } else if(element.value === 'clear'){
       display = "";
       currentNumber = "";
       previousNumber = "";
       lastOperator = "";
+      runningTotal= "";
+      figure.innerHTML = display;
   }
 }
-
-
-
-;
-
 
 
 /**
